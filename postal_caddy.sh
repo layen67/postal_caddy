@@ -101,6 +101,40 @@ sleep 500
 
 fdu process -c -i -t 3600 /etc/freenom.yml&
 
+
+apt-get install -y firewalld;
+systemctl enable firewalld;
+systemctl start firewalld;
+firewall-cmd --add-port=80/tcp --permanent;
+firewall-cmd --add-port=443/tcp --permanent;
+firewall-cmd --add-port=25/tcp --permanent;
+firewall-cmd --add-port=2525/tcp --permanent;
+firewall-cmd --add-port=587/tcp --permanent;
+firewall-cmd --add-port=465/tcp --permanent;
+firewall-cmd --add-port=3306/tcp --permanent;
+firewall-cmd --add-port=8000/tcp --permanent;
+firewall-cmd --add-port=8082/tcp --permanent;
+firewall-cmd --add-port=8080/tcp --permanent;
+firewall-cmd --add-port=8088/tcp --permanent;
+firewall-cmd --add-port=8443/tcp --permanent;
+firewall-cmd --add-port=5000/tcp --permanent;
+firewall-cmd --add-port=8089/tcp --permanent;
+firewall-cmd --add-port=5672/tcp --permanent;
+firewall-cmd --add-port=9443/tcp --permanent;
+firewall-cmd --add-port=11443/tcp --permanent;
+firewall-cmd --add-port=783/tcp --permanent;
+firewall-cmd --add-port=4444/tcp --permanent;
+firewall-cmd --add-port=4369/tcp --permanent;
+firewall-cmd --add-port=25672/tcp --permanent;
+firewall-cmd --add-port=5671-5672/tcp --permanent;
+
+firewall-cmd --add-masquerade --permanent;
+firewall-cmd --add-forward-port=port=2525:proto=tcp:toport=25 --permanent;
+firewall-cmd --add-forward-port=port=465:proto=tcp:toport=25 --permanent;
+firewall-cmd --add-forward-port=port=587:proto=tcp:toport=25 --permanent;
+systemctl restart firewalld;
+
+
 apt update;
 apt install git curl jq;
 git clone https://postalserver.io/start/install /opt/postal/install;
