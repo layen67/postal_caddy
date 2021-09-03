@@ -32,6 +32,9 @@ record:
   # the following will update both your subdomain's A and AAAA records with your current ips (v4 and v6)
   - domain: $domainname
     name: www
+  # the following will update both your subdomain's A and AAAA records with your current ips (v4 and v6)
+  - domain: $domainname
+    name: mx.postal
   # the following will update your subdomain's A record with your current ip (v4)
   - domain: $domainname
     name: click
@@ -86,13 +89,13 @@ record:
   - domain: $domainname
     name:
     type: MX
-    target: postal.$domainname # you can omit this line
+    target: mx.postal.$domainname # you can omit this line
     priority: 10
   # the following will update your subdomain's A record with your current ip (v4)
   - domain: $domainname
     name: routes.postal
     type: MX
-    target: postal.$domainname # you can omit this line
+    target: mx.postal.$domainname # you can omit this line
     priority: 10
 "> /etc/freenom.yml;
 fdu process -c -i -t 3600 /etc/freenom.yml&
@@ -173,10 +176,23 @@ echo '  # tls_private_key_path: ' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  log_connect: true' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  strip_received_headers: true' | sudo tee -a /opt/postal/config/postal.yml;
+
+sed -i -e "s/example.com/$domainname/g" /opt/postal/config/postal.yml;
+
+postal initialize;
+postal make-user;
+
+
+docker run -d \
+   --name postal-caddy \
+   --restart always \
+   --network host \
+   -v /opt/postal/config/Caddyfile:/etc/caddy/Caddyfile \
+   -v /opt/postal/caddy-data:/data \
+   caddy
   
-  
-  
-sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$domainname\/production\/signed.crt/g" /opt/postal/config/postal.yml;
-sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$domainname\/production\/domain.key/g" /opt/postal/config/postal.yml;
-sed -i -r "s/.*postal.cert.*/    ssl_certificate          \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$domainname\/production\/signed.crt;/g" /etc/nginx/sites-available/default;
-sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$domainname\/production\/domain.key;/g" /etc/nginx/sites-available/default
+sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/opt\/postal\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname.crt/g" /opt/postal/config/postal.yml;
+sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/opt\/postal\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname.key/g" /opt/postal/config/postal.yml;
+
+postal stop;
+postal start;
