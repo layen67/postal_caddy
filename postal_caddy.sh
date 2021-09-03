@@ -159,4 +159,4 @@ docker run -d \
    -e RABBITMQ_DEFAULT_VHOST=postal \
    rabbitmq:3.8
    
-  apt update;
+  postal bootstrap postal.$domainname;
