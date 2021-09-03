@@ -159,4 +159,24 @@ docker run -d \
    -e RABBITMQ_DEFAULT_VHOST=postal \
    rabbitmq:3.8
    
-  postal bootstrap postal.$domainname;
+postal bootstrap postal.$domainname;
+  
+sed -i -e '/^smtp_server:/d' /opt/postal/config/postal.yml
+sed -i -e '/^  port: 25/d' /opt/postal/config/postal.yml
+
+echo '' | sudo tee -a /opt/postal/config/postal.yml;
+echo 'smtp_server:' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  port: 25' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  # tls_certificate_path: ' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  # tls_private_key_path: ' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  log_connect: true' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  strip_received_headers: true' | sudo tee -a /opt/postal/config/postal.yml;
+  
+  
+  
+sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$domainname\/production\/signed.crt/g" /opt/postal/config/postal.yml;
+sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$domainname\/production\/domain.key/g" /opt/postal/config/postal.yml;
+sed -i -r "s/.*postal.cert.*/    ssl_certificate          \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$domainname\/production\/signed.crt;/g" /etc/nginx/sites-available/default;
+sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$domainname\/production\/domain.key;/g" /etc/nginx/sites-available/default
