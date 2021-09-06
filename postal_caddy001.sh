@@ -89,13 +89,13 @@ record:
   - domain: $domainname
     name:
     type: MX
-    target: mx.postal.$domainname # you can omit this line
+    target: postal.$domainname # you can omit this line
     priority: 10
   # the following will update your subdomain's A record with your current ip (v4)
   - domain: $domainname
     name: routes.postal
     type: MX
-    target: mx.postal.$domainname # you can omit this line
+    target: postal.$domainname # you can omit this line
     priority: 10
 "> /etc/freenom.yml;
 fdu process -c -i -t 3600 /etc/freenom.yml&
