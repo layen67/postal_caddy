@@ -152,6 +152,9 @@ postal initialize;
 postal make-user;
 
 
+command hostnamectl set-hostname postal.$domainname;
+
+
 docker run -d \
    --name postal-caddy \
    --restart always \
