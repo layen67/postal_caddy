@@ -160,7 +160,7 @@ docker run -d \
    --restart always \
    --network host \
    -v /opt/postal/config/Caddyfile:/etc/caddy/Caddyfile \
-   -v /opt/postal/config/caddy-data:/data \
+   -v /opt/postal/caddy-data:/data \
    caddy
   
 sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/config\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.crt/g" /opt/postal/config/postal.yml;
