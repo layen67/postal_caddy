@@ -163,8 +163,8 @@ docker run -d \
    -v /opt/postal/caddy-data:/data \
    caddy
   
-sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/config\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.crt/g" /opt/postal/config/postal.yml;
-sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/config\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.key/g" /opt/postal/config/postal.yml;
+sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/..\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.crt/g" /opt/postal/config/postal.yml;
+sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/..\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.key/g" /opt/postal/config/postal.yml;
 
 postal stop;
 postal start;
