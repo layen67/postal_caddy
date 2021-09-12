@@ -178,7 +178,7 @@ service nginx reload;
 
 
 
-sudo mkdir /opt/postal/config/docker/wordpress;
+sudo mkdir /opt/postal/config/wordpress;
 
 echo "
 version: '2'
@@ -189,7 +189,7 @@ services:
     ports:
       - '80:80'
       - '443:443'
-    network_mode: host
+#    network_mode: host
     restart: always
     environment:
       STAGE: 'production'
@@ -212,11 +212,11 @@ services:
       - ./conf.d:/etc/nginx/conf.d/:rw
       - ./ssl_certs:/var/lib/https-portal:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
-"> /opt/postal/config/docker/wordpress/docker-compose.yml;
+"> /opt/postal/config/wordpress/docker-compose.yml;
 
 #cd /etc/nginx
 #rm -rf /etc/nginx/nginx.conf
 #wget https://raw.githubusercontent.com/layen67/dockerpostalwordpress/master/nginx.conf
 
-cd /opt/postal/config/docker/wordpress;
+cd /opt/postal/config/wordpress;
 docker-compose up -d;
