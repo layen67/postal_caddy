@@ -168,3 +168,28 @@ command hostnamectl set-hostname postal.$domainname;
 
 postal stop;
 postal start;
+
+
+
+
+
+
+
+
+
+
+
+apt install -y nginx;
+mkdir /etc/nginx/ssl/;
+openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=France/L=paris/O=17/CN=postal.$domainname";
+service nginx reload;
+
+
+
+sudo mkdir /var/lib/docker/wordpress;
+cd /etc/nginx
+rm -rf /etc/nginx/nginx.conf
+wget https://raw.githubusercontent.com/layen67/dockerpostalwordpress/master/nginx.conf
+
+cd /var/lib/docker/wordpress;
+
