@@ -3,7 +3,7 @@
 set -e
 
 read -p "Please enter domain:" domainname
-read -p "Please enter Msql password: LFr37rG3r " domainpasspw
+#read -p "Please enter Msql password: LFr37rG3r " domainpasspw
 read -p "Please enter your Freenom.com email login:" Freenomloginpw
 read -p "Please enter your Freenom.com password:" Freenompasspw
 
