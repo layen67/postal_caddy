@@ -171,10 +171,10 @@ postal start;
 
 
 
-apt install -y nginx;
-mkdir /etc/nginx/ssl/;
-openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=France/L=paris/O=17/CN=$domainname";
-service nginx reload;
+#apt install -y nginx;
+#mkdir /etc/nginx/ssl/;
+#openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=France/L=paris/O=17/CN=$domainname";
+#service nginx reload;
 
 
 
@@ -206,7 +206,6 @@ services:
       CLIENT_MAX_BODY_SIZE: 300M
       DOMAINS: >-
           track.postal.$domainname -> http://127.0.0.1:5000,
-          click.$domainname -> http://127.0.0.1:5000,
           postal.$domainname -> http://127.0.0.1:5000
     volumes:
       - ./conf.d:/etc/nginx/conf.d/:rw
