@@ -171,7 +171,7 @@ services:
     ports:
       - '80:80'
       - '443:443'
-    network_mode: host
+#    network_mode: host
     restart: always
     environment:
       STAGE: 'production'
@@ -187,9 +187,9 @@ services:
       PROXY_READ_TIMEOUT: '900'
       CLIENT_MAX_BODY_SIZE: 300M
       DOMAINS: >-
-          postal.$domainname -> http://127.0.0.1:5000,
-          mta-sts.postal.$domainname -> http://127.0.0.1:5000,
-          track.postal.$domainname -> http://127.0.0.1:5000
+          postal.$domainname -> http://172.17.0.1:5000,
+          mta-sts.postal.$domainname -> http://172.17.0.1:5000,
+          track.postal.$domainname -> http://172.17.0.1:5000
     volumes:
       - ./conf.d:/etc/nginx/conf.d/:rw
       - ./ssl_certs:/var/lib/https-portal:rw
