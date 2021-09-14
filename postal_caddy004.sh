@@ -202,7 +202,7 @@ docker-compose up -d;
 sleep 20
 chmod 777 ssl_certs/ -R;
 
-sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/config/wordpress\/ssl_certs\/postal.$domainname\/production\/signed.crt/g" /opt/postal/config/postal.yml;
-sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/config/wordpress\/ssl_certs\/postal.$domainname\/production\/domain.key/g" /opt/postal/config/postal.yml;
+sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/config\/wordpress\/ssl_certs\/postal.$domainname\/production\/signed.crt/g" /opt/postal/config/postal.yml;
+sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/config\/wordpress\/ssl_certs\/postal.$domainname\/production\/domain.key/g" /opt/postal/config/postal.yml;
 
 postal start;
