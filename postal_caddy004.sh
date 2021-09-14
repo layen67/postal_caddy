@@ -151,6 +151,7 @@ echo '  strip_received_headers: true' | sudo tee -a /opt/postal/config/postal.ym
 
 sed -i -e "s/example.com/$domainname/g" /opt/postal/config/postal.yml;
 sed -i -e "s/mx.postal.$domainname/postal.$domainname/g" /opt/postal/config/postal.yml;
+sed -i -e "s/bind_address: 127.0.0.1/bind_address: 0.0.0.0/g" /opt/postal/config/postal.yml;
 
 postal initialize;
 postal make-user;
