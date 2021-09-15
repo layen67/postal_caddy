@@ -58,7 +58,7 @@ record:
     
   # the following will update your subdomain's A record with your current ip (v4)
   - domain: $domainname
-    name: belgium
+    name: offert.postal
     type: CNAME
     target: news.oued-laou.com # you can omit this line
   # the following will update your subdomain's A record with your current ip (v4)
@@ -74,7 +74,7 @@ record:
     
   # the following will update your subdomain's A record with your current ip (v4)
   - domain: $domainname
-    name: POSTAL-RO9MOV._DOMAINKEY
+    name: POSTAL-MODIFIER._DOMAINKEY
     type: TXT
     target: v=DKIM1; t=s; h=sha256; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDGCaSFpYj86cSSJpyQhs505MGoPdtfvgBryr2jlRppEQfJXkEP8uG39iLDvoLogyHNaYzsbVJL/3HBb80fnTxlYA454WMUZ0ndnnQ9Ue9AGA3Sd7tVPqaRyX0epZ2zA2/Yy+CJ5nEebt6apeUyGCGyiw+uRvnx/o0KzKk8uGPgTQIDAQAB; # you can omit this line
   # the following will update your subdomain's A record with your current ip (v4)
@@ -102,12 +102,8 @@ record:
     priority: 10
 "> /etc/freenom.yml;
 fdu process -c -i -t 3600 /etc/freenom.yml&
-
-sleep 100
-
+sleep 90
 fdu process -c -i -t 3600 /etc/freenom.yml&
-
-sleep 100
 
 apt update;
 apt install git curl jq;
