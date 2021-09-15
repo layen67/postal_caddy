@@ -60,7 +60,7 @@ record:
   - domain: $domainname
     name: offert.postal
     type: CNAME
-    target: news.oued-laou.com # you can omit this line
+    target: news.kretonbiz.tk # you can omit this line
   # the following will update your subdomain's A record with your current ip (v4)
   - domain: $domainname
     name: 
