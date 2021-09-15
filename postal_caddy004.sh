@@ -201,7 +201,7 @@ chmod 777 ssl_certs/ -R;
 sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/config\/wordpress\/ssl_certs\/postal.$domainname\/production\/signed.crt/g" /opt/postal/config/postal.yml;
 sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/config\/wordpress\/ssl_certs\/postal.$domainname\/production\/domain.key/g" /opt/postal/config/postal.yml;
 
-apt install spamassassin;
+apt install spamassassin -y;
 systemctl restart spamassassin;
 sed -i -e "s/ENABLED=0/ENABLED=1/g" /etc/default/spamassassin;
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
