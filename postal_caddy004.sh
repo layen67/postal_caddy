@@ -104,6 +104,7 @@ record:
 fdu process -c -i -t 3600 /etc/freenom.yml&
 
 apt update;
+apt install spamassassin -y;
 apt install git curl jq;
 git clone https://postalserver.io/start/install /opt/postal/install;
 sudo ln -s /opt/postal/install/bin/postal /usr/bin/postal;
@@ -202,9 +203,9 @@ chmod 777 ssl_certs/ -R;
 sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/config\/wordpress\/ssl_certs\/postal.$domainname\/production\/signed.crt/g" /opt/postal/config/postal.yml;
 sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/config\/wordpress\/ssl_certs\/postal.$domainname\/production\/domain.key/g" /opt/postal/config/postal.yml;
 
-apt install spamassassin -y;
-systemctl restart spamassassin;
 sed -i -e "s/ENABLED=0/ENABLED=1/g" /etc/default/spamassassin;
+systemctl restart spamassassin;
+
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
 echo 'spamd:' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
