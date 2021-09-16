@@ -105,7 +105,7 @@ fdu process -c -i -t 3600 /etc/freenom.yml&
 
 apt update;
 apt install spamassassin -y;
-apt install git curl jq;
+apt install git curl jq -y;
 git clone https://postalserver.io/start/install /opt/postal/install;
 sudo ln -s /opt/postal/install/bin/postal /usr/bin/postal;
 apt-get update;apt-get install -y docker.io;
