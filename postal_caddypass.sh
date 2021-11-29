@@ -18,7 +18,7 @@ apt-get update;
 apt-get install -y python3-setuptools;
 apt-get install -y python3.6;
 python3 setup.py install;
-apt-get install -y python3-click python-click;
+apt-get install -y python3-click;
 
 
 echo "
@@ -212,5 +212,41 @@ echo 'spamd:' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  host: 127.0.0.1' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  port: 783' | sudo tee -a /opt/postal/config/postal.yml;
+
+#
+# Installation 
+#
+sudo apt-get update -y;
+apt-get install -y firewalld;
+systemctl enable firewalld;
+systemctl start firewalld;
+firewall-cmd --add-port=80/tcp --permanent;
+firewall-cmd --add-port=443/tcp --permanent;
+firewall-cmd --add-port=25/tcp --permanent;
+firewall-cmd --add-port=2525/tcp --permanent;
+firewall-cmd --add-port=587/tcp --permanent;
+firewall-cmd --add-port=465/tcp --permanent;
+firewall-cmd --add-port=3306/tcp --permanent;
+firewall-cmd --add-port=8000/tcp --permanent;
+firewall-cmd --add-port=8082/tcp --permanent;
+firewall-cmd --add-port=8080/tcp --permanent;
+firewall-cmd --add-port=8088/tcp --permanent;
+firewall-cmd --add-port=8443/tcp --permanent;
+firewall-cmd --add-port=5000/tcp --permanent;
+firewall-cmd --add-port=8089/tcp --permanent;
+firewall-cmd --add-port=5672/tcp --permanent;
+firewall-cmd --add-port=9443/tcp --permanent;
+firewall-cmd --add-port=11443/tcp --permanent;
+firewall-cmd --add-port=783/tcp --permanent;
+firewall-cmd --add-port=4444/tcp --permanent;
+firewall-cmd --add-port=4369/tcp --permanent;
+firewall-cmd --add-port=25672/tcp --permanent;
+firewall-cmd --add-port=5671-5672/tcp --permanent;
+
+firewall-cmd --add-masquerade --permanent;
+firewall-cmd --add-forward-port=port=2525:proto=tcp:toport=25 --permanent;
+firewall-cmd --add-forward-port=port=465:proto=tcp:toport=25 --permanent;
+firewall-cmd --add-forward-port=port=587:proto=tcp:toport=25 --permanent;
+systemctl restart firewalld;
 
 postal start;
