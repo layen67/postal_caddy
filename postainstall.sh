@@ -180,7 +180,7 @@ postal make-user;
 command hostnamectl set-hostname postal.$domainname;
 
 postal stop;
-docker run -d --name phpmyadmin -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin;
+docker run --restart=always -d --name phpmyadmin -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin;
 
 sudo mkdir /opt/postal/config/wordpress;
 
@@ -210,7 +210,7 @@ services:
       CLIENT_MAX_BODY_SIZE: 300M
       DOMAINS: >-
           postal.$domainname -> http://172.17.0.1:5000,
-          phpmyadmin.$domainname -> http://172.17.0.3:8080,
+          phpmyadmin.$domainname -> http://172.17.0.1:8080,
           track.postal.$domainname -> http://172.17.0.1:5000
     volumes:
       - ./conf.d:/etc/nginx/conf.d/:rw
