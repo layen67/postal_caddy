@@ -180,7 +180,7 @@ postal make-user;
 command hostnamectl set-hostname postal.$domainname;
 
 postal stop;
-docker run --restart=always -d --name phpmyadmin -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin;
+# docker run --restart=always -d --name phpmyadmin -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin;
 
 sudo mkdir /opt/postal/config/wordpress;
 
