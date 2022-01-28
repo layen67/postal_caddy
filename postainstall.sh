@@ -45,7 +45,7 @@ record:
     name: postal
   # the following will update your subdomain's A record with your current ip (v4)
   - domain: $domainname
-    name: mta-sts.postal
+    name: phpmyadmin
   # the following will update your subdomain's A record with your current ip (v4)
   - domain: $domainname
     name: rp.postal
@@ -180,6 +180,7 @@ postal make-user;
 command hostnamectl set-hostname postal.$domainname;
 
 postal stop;
+docker run -d --name phpmyadmin -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin;
 
 sudo mkdir /opt/postal/config/wordpress;
 
@@ -209,7 +210,7 @@ services:
       CLIENT_MAX_BODY_SIZE: 300M
       DOMAINS: >-
           postal.$domainname -> http://172.17.0.1:5000,
-          mta-sts.postal.$domainname -> http://172.17.0.1:5000,
+          phpmyadmin.$domainname -> http://172.17.0.3:8080,
           track.postal.$domainname -> http://172.17.0.1:5000
     volumes:
       - ./conf.d:/etc/nginx/conf.d/:rw
@@ -271,3 +272,4 @@ firewall-cmd --add-forward-port=port=587:proto=tcp:toport=25 --permanent;
 systemctl restart firewalld;
 
 postal start;
+reboot;
