@@ -8,7 +8,7 @@ read -p "Please enter your Freenom.com email login:" Freenomloginpw
 read -p "Please enter your Freenom.com password:" Freenompasspw
 
 # freenom install
-apt-get update && sudo apt-get dist-upgrade;
+
 apt-get update;
 apt install git -y;
 git clone https://github.com/dawierha/Freenom-dns-updater.git;
