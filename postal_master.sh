@@ -53,50 +53,11 @@ postal initialize;
 
 postal make-user;
 
-
 command hostnamectl set-hostname postal.$domainname;
 
 postal stop;
 # docker run --restart=always -d --name phpmyadmin -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin;
 
-sudo mkdir /opt/postal/config/https;
-
-echo "
-version: '2'
-services:
-  https-portal:
-    container_name: https-portal
-    image: steveltn/https-portal:latest
-    ports:
-      - '80:80'
-      - '443:443'
-#    network_mode: host
-    restart: always
-    environment:
-      STAGE: 'production'
-      NUMBITS: '4096'
-#        FORCE_RENEW: 'true'
-      WORKER_PROCESSES: '4'
-      WORKER_CONNECTIONS: '1024'
-      KEEPALIVE_TIMEOUT: '65'
-      GZIP: 'on'
-      SERVER_NAMES_HASH_BUCKET_SIZE: '64'
-      PROXY_CONNECT_TIMEOUT: '900'
-      PROXY_SEND_TIMEOUT: '900'
-      PROXY_READ_TIMEOUT: '900'
-      CLIENT_MAX_BODY_SIZE: 300M
-      DOMAINS: >-
-          postal.$domainname -> http://172.17.0.1:5000,
-          phpmyadmin.$domainname -> http://172.17.0.1:8080,
-          track.postal.$domainname -> http://172.17.0.1:5000
-    volumes:
-      - ./conf.d:/etc/nginx/conf.d/:rw
-      - ./ssl_certs:/var/lib/https-portal:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-"> /opt/postal/config/https/docker-compose.yml;
-
-cd /opt/postal/config/https;
-docker-compose up -d;
 sleep 20
 chmod 777 ssl_certs/ -R;
 
