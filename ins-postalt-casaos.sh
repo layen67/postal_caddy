@@ -10,7 +10,7 @@ apt-get update;
 apt install spamassassin -y;
 apt install git curl jq -y;
 git clone https://postalserver.io/start/install /opt/postal/install;
-sudo ln -s /opt/postal/install/bin/postal /usr/bin/postal;
+ln -s /opt/postal/install/bin/postal /usr/bin/postal;
 
 docker run -d \
    --name postal-mariadb \
@@ -76,7 +76,7 @@ echo '  port: 783' | sudo tee -a /opt/postal/config/postal.yml;
 #
 # Installation 
 #
-sudo apt-get update -y;
+apt-get update -y;
 apt-get install -y firewalld;
 systemctl enable firewalld;
 systemctl start firewalld;
