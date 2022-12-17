@@ -102,6 +102,7 @@ firewall-cmd --add-port=783/tcp --permanent;
 #firewall-cmd --add-port=4369/tcp --permanent;
 #firewall-cmd --add-port=25672/tcp --permanent;
 firewall-cmd --add-port=51920/udp --permanent;
+firewall-cmd --add-port=51920/udp --permanent --zone=docker
 #firewall-cmd --add-port=51821/tcp --permanent;
 #firewall-cmd --add-port=9000/tcp --permanent;
 #firewall-cmd --add-port=5671-5672/tcp --permanent;
