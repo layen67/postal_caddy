@@ -210,9 +210,7 @@ services:
       PROXY_READ_TIMEOUT: '900'
       CLIENT_MAX_BODY_SIZE: 300M
       DOMAINS: >-
-          postal.$domainname -> http://172.17.0.1:5000,
-          phpmyadmin.$domainname -> http://172.17.0.1:8080,
-          track.postal.$domainname -> http://172.17.0.1:5000
+          postal.$domainname -> http://172.17.0.1:5000
     volumes:
       - ./conf.d:/etc/nginx/conf.d/:rw
       - ./ssl_certs:/var/lib/https-portal:rw
