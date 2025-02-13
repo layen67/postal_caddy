@@ -5,7 +5,7 @@ set -e
 read -p "Please enter domain:" domainname
 read -p "Please enter Msql password: LFr37rG3r " domainpasspw
 
-
+sudo apt update -y && sudo apt upgrade -y;
 apt-get install -y firewalld;
 systemctl enable firewalld;
 systemctl start firewalld;
