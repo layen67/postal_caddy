@@ -71,7 +71,7 @@ sed -i -e '/^  port: 25/d' /opt/postal/config/postal.yml
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
 echo 'smtp_server:' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  port: 25' | sudo tee -a /opt/postal/config/postal.yml;
-echo '  tls_enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_enabled: false' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  # tls_certificate_path: ' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  # tls_private_key_path: ' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
@@ -92,8 +92,8 @@ docker run -d \
    -v /opt/postal/config/caddy-data:/data \
    caddy
   
-sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/opt\/postal\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.crt/g" /opt/postal/config/postal.yml;
-sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/opt\/postal\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.key/g" /opt/postal/config/postal.yml;
+#sed -i -r "s/.*tls_certificate_path.*/  tls_certificate_path: \/opt\/postal\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.crt/g" /opt/postal/config/postal.yml;
+#sed -i -r "s/.*tls_private_key_path.*/  tls_private_key_path: \/opt\/postal\/caddy-data\/caddy\/certificates\/acme-v02.api.letsencrypt.org-directory\/postal.$domainname\/postal.$domainname.key/g" /opt/postal/config/postal.yml;
 
 postal stop;
 postal start;
