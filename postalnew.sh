@@ -56,7 +56,7 @@ apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Install helper
-git clone https://postalserver.io/start/install /opt/postal/install
+git clone https://github.com/postalserver/install /opt/postal/install
 ln -s /opt/postal/install/bin/postal /usr/bin/postal
 
 
