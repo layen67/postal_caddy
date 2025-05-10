@@ -111,7 +111,7 @@ docker run -d \
 
 postal stop;
 postal start;
-pip3 install tqdm;
-pip3 install request;
+pip3 install -y tqdm;
+pip3 install -y request;
 
 reboot;
